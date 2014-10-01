@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+
+	<meta title="Particles" package="br.com.locomotivemobile.samples.particles" version="1.0.0" company="Company Name" />
+	<app main="Main" path="Export" file="Particles" />
+
+	<source path="Source" />
+
+	<haxelib name="openfl" />
+	<haxelib name="flixel" />
+	<haxelib name="flixel-addons" />
+
+	<assets path="Assets" rename="assets" exclude="openfl.svg" />
+	<icon path="Assets/openfl.svg" />
+
+</project>

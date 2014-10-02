@@ -7,6 +7,6 @@ class RainParticle extends FlxParticle
 	public function new()
 	{
 		super();
-		makeGraphic(2, 2, 0xCCCCCCFF);
+		makeGraphic(2, 4, 0xCCCCCCFF);
 	}
 }

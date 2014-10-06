@@ -2,11 +2,13 @@ package scenes;
 
 import flixel.FlxState;
 import flixel.effects.particles.FlxEmitter;
+import flixel.effects.particles.FlxParticle;
 import flixel.FlxG;
 import flixel.ui.FlxButton;
 import particles.SmokeParticle;
 import particles.RainParticle;
 import particles.SnowParticle;
+import particles.FireParticle;
 
 class PlayScene extends FlxState
 {
@@ -79,7 +81,33 @@ class PlayScene extends FlxState
 
 	private function startFire():Void
 	{
-		trace("start fire!");
+		emitter.destroy();
+
+		initEmitter();
+		emitter.setPosition(FlxG.width/2, FlxG.height-100);
+		emitter.setRotation(0, 0);
+		emitter.setSize(100, 300);
+
+		emitter.startAlpha.set(.5, 1);
+		emitter.startRed.set(.6, 1);
+		emitter.startGreen.set(0, .1);
+		emitter.startBlue.set(0, 0);
+
+		emitter.endAlpha.set(0, 0);
+		emitter.endRed.set(1, 1);
+		emitter.endGreen.set(1, 1);
+		emitter.endBlue.set(0, 0);
+
+		emitter.setXSpeed(0, 0);
+		emitter.setYSpeed(-30, -40);
+
+		for(i in 0...particles_count*4)
+		{
+			var particle:FireParticle = new FireParticle();
+			emitter.add(particle);
+		}
+
+		emitter.start(false, 3, .025);
 	}
 
 	private function initEmitter():Void

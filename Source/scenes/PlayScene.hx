@@ -3,6 +3,7 @@ package scenes;
 import flixel.FlxState;
 import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
+import flixel.effects.particles.FlxEmitterExt;
 import flixel.FlxG;
 import flixel.ui.FlxButton;
 import particles.SmokeParticle;
@@ -13,6 +14,7 @@ import particles.FireParticle;
 class PlayScene extends FlxState
 {
 	private var emitter:FlxEmitter;
+	private var emitterExt:FlxEmitterExt;
 	private var particles_count:Int = 200;
 
 	override public function create():Void
@@ -22,6 +24,7 @@ class PlayScene extends FlxState
 		FlxG.camera.bgColor = 0xff131c1b;
 
 		initEmitter();
+		initEmitterExt();
 
 		var rainButton:FlxButton = new FlxButton(10, FlxG.height-25, "Rain", startRain);
 		add(rainButton);
@@ -34,11 +37,15 @@ class PlayScene extends FlxState
 
 		var fireButton:FlxButton = new FlxButton((smokeButton.width + smokeButton.x) + 10, FlxG.height-25, "Fire", startFire);
 		add(fireButton);
+
+		var fireFliesButton:FlxButton = new FlxButton((fireButton.width + fireButton.x) + 10, FlxG.height-25, "Fireflies", startFireflies);
+		add(fireFliesButton);
 	}
 
 	private function startRain():Void
 	{
 		emitter.destroy();
+		emitterExt.destroy();
 
 		initEmitter();
 
@@ -58,6 +65,7 @@ class PlayScene extends FlxState
 	private function startSnow():Void
 	{
 		emitter.destroy();
+		emitterExt.destroy();
 
 		initEmitter();
 
@@ -76,38 +84,45 @@ class PlayScene extends FlxState
 
 	private function startSmoke():Void
 	{
+
+	}
+
+	private function startFireflies():Void
+	{
 		emitter.destroy();
+		emitterExt.destroy();
 
-		initEmitter();
-		emitter.setPosition(FlxG.width/2, FlxG.height/2);
-		emitter.setRotation(0, 0);
-		emitter.setSize(300, 300);
+		initEmitterExt();
+		emitterExt.setPosition(0, 0);
+		emitterExt.setRotation(0, 0);
+		emitterExt.setSize(FlxG.width, FlxG.height);
 
-		emitter.startAlpha.set(.5, 1);
-		emitter.startRed.set(.6, .6);
-		emitter.startGreen.set(.6, .6);
-		emitter.startBlue.set(.6, .6);
+		emitterExt.startAlpha.set(.8, 1);
+		emitterExt.startRed.set(.9, .9);
+		emitterExt.startGreen.set(.9, .9);
+		emitterExt.startBlue.set(.6, .6);
 
-		emitter.endAlpha.set(0, 0);
-		emitter.endRed.set(.1, .1);
-		emitter.endGreen.set(.1, .1);
-		emitter.endBlue.set(.1, .1);
+		emitterExt.endAlpha.set(.2, .4);
+		emitterExt.endRed.set(.4, .4);
+		emitterExt.endGreen.set(.4, .4);
+		emitterExt.endBlue.set(.1, .1);
 
-		emitter.setXSpeed(0, 0);
-		emitter.setYSpeed(-30, -30);
+		emitterExt.setXSpeed(0, 0);
+		emitterExt.setYSpeed(-30, -30);
 
 		for(i in 0...particles_count*4)
 		{
 			var particle:SmokeParticle = new SmokeParticle();
-			emitter.add(particle);
+			emitterExt.add(particle);
 		}
 
-		emitter.start(false, 3, .025);
+		emitterExt.start(false, 3, .025);
 	}
 
 	private function startFire():Void
 	{
 		emitter.destroy();
+		emitterExt.destroy();
 
 		initEmitter();
 		emitter.setPosition(FlxG.width/2, FlxG.height/2);
@@ -142,6 +157,12 @@ class PlayScene extends FlxState
 		emitter.setSize(FlxG.width, 0);
 
 		add(emitter);
+	}
+
+	private function initEmitterExt():Void
+	{
+		emitterExt = new FlxEmitterExt(0, 0);
+		add(emitterExt);
 	}
 
 	override public function update():Void

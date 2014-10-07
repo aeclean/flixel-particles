@@ -76,7 +76,33 @@ class PlayScene extends FlxState
 
 	private function startSmoke():Void
 	{
+		emitter.destroy();
 
+		initEmitter();
+		emitter.setPosition(FlxG.width/2, FlxG.height/2);
+		emitter.setRotation(0, 0);
+		emitter.setSize(300, 300);
+
+		emitter.startAlpha.set(.5, 1);
+		emitter.startRed.set(.6, .6);
+		emitter.startGreen.set(.6, .6);
+		emitter.startBlue.set(.6, .6);
+
+		emitter.endAlpha.set(0, 0);
+		emitter.endRed.set(.1, .1);
+		emitter.endGreen.set(.1, .1);
+		emitter.endBlue.set(.1, .1);
+
+		emitter.setXSpeed(0, 0);
+		emitter.setYSpeed(-30, -30);
+
+		for(i in 0...particles_count*4)
+		{
+			var particle:SmokeParticle = new SmokeParticle();
+			emitter.add(particle);
+		}
+
+		emitter.start(false, 3, .025);
 	}
 
 	private function startFire():Void
@@ -84,7 +110,7 @@ class PlayScene extends FlxState
 		emitter.destroy();
 
 		initEmitter();
-		emitter.setPosition(FlxG.width/2, FlxG.height-100);
+		emitter.setPosition(FlxG.width/2, FlxG.height/2);
 		emitter.setRotation(0, 0);
 		emitter.setSize(100, 300);
 
